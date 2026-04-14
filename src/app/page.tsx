@@ -1,3 +1,6 @@
+import GoogleSignInButton from "../components/auth/GoogleSignInButton";
+
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#0d0d0d] text-[#e8e4dc]">
@@ -19,6 +22,7 @@ export default function Home() {
           >
             Get started
           </a>
+          <GoogleSignInButton />
         </div>
       </nav>
 
