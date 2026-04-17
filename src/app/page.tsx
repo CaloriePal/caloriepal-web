@@ -1,4 +1,4 @@
-import GoogleSignInButton from "../components/auth/GoogleSignInButton";
+import { GoogleSignInButton } from "@components";
 
 
 export default function Home() {
