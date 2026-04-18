@@ -31,6 +31,14 @@ export interface DailyQuestsDto {
   totalCoinsEarned: number;
 }
 
+export interface ActivityLogEntryDto {
+  logId: string;
+  questTitle: string;
+  category: 'Training' | 'Nutrition' | 'Mindset';
+  xpAwarded: number;
+  completedAt: string;
+}
+
 export interface CompleteQuestResult {
   xpAwarded: number;
   coinsAwarded: number;

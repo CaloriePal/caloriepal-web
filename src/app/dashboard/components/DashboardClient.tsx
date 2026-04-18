@@ -2,21 +2,22 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { HeroCard, QuestList, StatsBar, StreakCalendar, ActivityLog } from "./index";
-import { DailyQuestItemDto, DailyQuestsDto, PlayerStatsDto } from "@models/dashboard";
-import { completeQuest, fetchDailyQuests, fetchPlayerStats } from "@utils/api";
+import { ActivityLogEntryDto, DailyQuestItemDto, DailyQuestsDto, PlayerStatsDto } from "@models/dashboard";
+import { completeQuest, fetchActivityLog, fetchDailyQuests, fetchPlayerStats } from "@utils/api";
 
 const DashboardClient = () => {
     const [stats, setStats] = useState<PlayerStatsDto | null>(null);
     const [quests, setQuests] = useState<DailyQuestsDto | null>(null);
+    const [activityLog, setActivityLog] = useState<ActivityLogEntryDto[]>([]);
     const [loading, setLoading] = useState(true);
-    const [completingId, setCompletingId] = useState<string | null>(null);
     const [levelUpMsg, setLevelUpMsg] = useState<string | null>(null);
 
     const loadDashboard = useCallback(async () => {
         try {
-            const [s, q] = await Promise.all([fetchPlayerStats(), fetchDailyQuests()]);
+            const [s, q, log] = await Promise.all([fetchPlayerStats(), fetchDailyQuests(), fetchActivityLog()]);
             setStats(s);
             setQuests(q);
+            setActivityLog(log);
         } catch (e) {
             console.error(e);
         } finally {
@@ -27,19 +28,36 @@ const DashboardClient = () => {
     useEffect(() => { loadDashboard(); }, [loadDashboard]);
 
     const handleComplete = async (quest: DailyQuestItemDto) => {
-        if (quest.isCompleted || completingId) return;
-        setCompletingId(quest.questId);
+        if (quest.isCompleted) return;
+
+        // Optimistically mark the quest completed instantly
+        setQuests((prev) => {
+            if (!prev) return prev;
+            const updated = prev.quests.map((q) =>
+                q.questId === quest.questId ? { ...q, isCompleted: true } : q
+            );
+            const completedCount = updated.filter((q) => q.isCompleted).length;
+            return {
+                ...prev,
+                quests: updated,
+                completedCount,
+                totalXpEarned: prev.totalXpEarned + quest.xpReward,
+                totalCoinsEarned: prev.totalCoinsEarned + quest.coinReward,
+            };
+        });
+
         try {
             const result = await completeQuest(quest.questId);
             if (result.levelsGained > 0) {
                 setLevelUpMsg(`Level up! You reached level ${result.newLevel}!`);
                 setTimeout(() => setLevelUpMsg(null), 4000);
+                // Re-fetch everything only when level-up changes XP bar / stats
+                await loadDashboard();
             }
-            await loadDashboard();
         } catch (e) {
             console.error(e);
-        } finally {
-            setCompletingId(null);
+            // Revert optimistic update on failure
+            await loadDashboard();
         }
     };
 
@@ -57,11 +75,11 @@ const DashboardClient = () => {
             <StatsBar stats={stats} />
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2">
-                    <QuestList quests={quests} completingId={completingId} onComplete={handleComplete} />
+                    <QuestList quests={quests} onComplete={handleComplete} />
                 </div>
                 <div className="space-y-6">
                     <StreakCalendar streak={stats.currentStreak} longestStreak={stats.longestStreak} freezes={stats.streakFreezes} />
-                    <ActivityLog />
+                    <ActivityLog entries={activityLog} />
                 </div>
             </div>
         </div>

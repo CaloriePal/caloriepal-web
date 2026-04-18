@@ -11,11 +11,10 @@ const categoryColors: Record<DailyQuestItemDto["category"], string> = {
 
 interface Props {
     quest: DailyQuestItemDto;
-    isCompleting: boolean;
     onComplete: () => void;
 }
 
-const QuestCard = ({ quest, isCompleting, onComplete }: Props) => {
+const QuestCard = ({ quest, onComplete }: Props) => {
     const colorClass = categoryColors[quest.category] ?? "bg-subtle/50 text-muted border-dim/20";
 
     return (
@@ -27,14 +26,12 @@ const QuestCard = ({ quest, isCompleting, onComplete }: Props) => {
                     : "bg-subtle/60 border-border/50 hover:border-dim cursor-pointer"
                 }
             `}
-            onClick={!quest.isCompleted && !isCompleting ? onComplete : undefined}
+            onClick={!quest.isCompleted ? onComplete : undefined}
         >
             {/* Status icon */}
             <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
                 {quest.isCompleted ? (
                     <Icon icon="hugeicons:checkmark-circle-02" width={22} height={22} className="text-lime" />
-                ) : isCompleting ? (
-                    <Icon icon="hugeicons:loading-03" width={22} height={22} className="text-lime animate-spin" />
                 ) : (
                     <Icon icon="hugeicons:circle" width={22} height={22} className="text-dim" />
                 )}

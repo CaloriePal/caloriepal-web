@@ -3,11 +3,10 @@ import QuestCard from "./QuestCard";
 
 interface Props {
     quests: DailyQuestsDto;
-    completingId: string | null;
     onComplete: (quest: DailyQuestItemDto) => void;
 }
 
-const QuestList = ({ quests, completingId, onComplete }: Props) => {
+const QuestList = ({ quests, onComplete }: Props) => {
     return (
         <div className="bg-card border border-border rounded-2xl p-5 space-y-4">
             {/* Header */}
@@ -45,7 +44,6 @@ const QuestList = ({ quests, completingId, onComplete }: Props) => {
                     <QuestCard
                         key={quest.questId}
                         quest={quest}
-                        isCompleting={completingId === quest.questId}
                         onComplete={() => onComplete(quest)}
                     />
                 ))}

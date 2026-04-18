@@ -1,5 +1,5 @@
 import { createClient } from '@utils/supabase/client';
-import type { PlayerStatsDto, DailyQuestsDto, CompleteQuestResult } from '@models/dashboard';
+import type { PlayerStatsDto, DailyQuestsDto, CompleteQuestResult, ActivityLogEntryDto } from '@models/dashboard';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -25,6 +25,13 @@ export async function fetchDailyQuests(): Promise<DailyQuestsDto> {
   const headers = await getAuthHeaders();
   const res = await fetch(`${API_BASE}/api/quests/daily`, { headers });
   if (!res.ok) throw new Error('Failed to fetch daily quests');
+  return res.json();
+}
+
+export async function fetchActivityLog(): Promise<ActivityLogEntryDto[]> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_BASE}/api/players/me/activity-log`, { headers });
+  if (!res.ok) throw new Error('Failed to fetch activity log');
   return res.json();
 }
 

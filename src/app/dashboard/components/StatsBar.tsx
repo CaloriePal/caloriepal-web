@@ -22,11 +22,11 @@ const StatsBar = ({ stats }: Props) => {
                 >
                     <div className="flex items-center gap-1.5 text-muted text-xs uppercase tracking-wider">
                         <span className="text-base leading-none">{item.icon}</span>
-                        <span>{item.label}</span>
+                        <span className="font-bold">{item.label}</span>
                     </div>
                     <div className="flex items-baseline gap-1.5">
                         <span className="text-xl font-black text-white tabular-nums">{item.value}</span>
-                        {item.unit && <span className="text-xs text-sand">{item.unit}</span>}
+                        {item.unit && <span className="text-xs text-sand font-bold">{item.unit}</span>}
                     </div>
                 </div>
             ))}
