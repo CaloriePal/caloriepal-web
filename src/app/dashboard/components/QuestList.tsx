@@ -7,9 +7,9 @@ interface Props {
     onComplete: (quest: DailyQuestItemDto) => void;
 }
 
-export default function QuestList({ quests, completingId, onComplete }: Props) {
+const QuestList = ({ quests, completingId, onComplete }: Props) => {
     return (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 space-y-4">
+        <div className="bg-card border border-border rounded-2xl p-5 space-y-4">
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
@@ -25,7 +25,7 @@ export default function QuestList({ quests, completingId, onComplete }: Props) {
                 <div className="flex items-center gap-2">
                     <div className="h-1.5 w-24 bg-zinc-800 rounded-full overflow-hidden">
                         <div
-                            className="h-full bg-[#c8f57a] rounded-full transition-all duration-500"
+                            className="h-full bg-lime rounded-full transition-all duration-500"
                             style={{
                                 width: `${quests.quests.length > 0 ? (quests.completedCount / quests.quests.length) * 100 : 0}%`
                             }}
@@ -53,3 +53,5 @@ export default function QuestList({ quests, completingId, onComplete }: Props) {
         </div>
     );
 }
+
+export default QuestList;

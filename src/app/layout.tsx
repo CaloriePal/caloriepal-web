@@ -20,10 +20,12 @@ export const metadata: Metadata = {
   description: 'Nutrition tracking built for people who actually care about what they eat.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${dmSans.variable} ${dmSerif.variable}`}>
-      <body className="bg-[#0d0d0d] text-[#e8e4dc] antialiased">{children}</body>
+      <body className="bg-base text-cream antialiased">{children}</body>
     </html>
   );
 }
+
+export default RootLayout;

@@ -1,19 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 @import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: hsl(222 47% 6%);
+  --color-foreground: hsl(210 40% 93%);
+  --color-border: hsl(222 30% 18%);
+  --color-card: hsl(222 41% 10%);
+
+  --color-base: hsl(222, 28%, 8%);
+  --color-surface: hsl(222, 24%, 11%);
+  --color-cream: hsl(210, 20%, 92%);
+  --color-sand: hsl(222, 10%, 55%);
+  --color-lime: hsl(43, 90%, 62%);
+  --color-lime-light: hsl(43, 90%, 70%);
+  --color-sky: hsl(152, 65%, 50%);
+  --color-gold: hsl(270, 65%, 65%);
+  --color-rose: hsl(28, 90%, 58%);
+
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
 }

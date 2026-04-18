@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@iconify/react";
 import type { DailyQuestItemDto } from "@models/dashboard";
 
 const categoryColors: Record<DailyQuestItemDto["category"], string> = {
@@ -14,43 +15,30 @@ interface Props {
     onComplete: () => void;
 }
 
-export default function QuestCard({ quest, isCompleting, onComplete }: Props) {
+const QuestCard = ({ quest, isCompleting, onComplete }: Props) => {
     const colorClass = categoryColors[quest.category] ?? "bg-zinc-700/30 text-zinc-400 border-zinc-600/20";
 
     return (
         <div
             className={`
-        flex items-center gap-4 p-4 rounded-xl border transition-all duration-200
-        ${quest.isCompleted
+                flex items-center gap-4 p-4 rounded-xl border transition-all duration-200
+                ${quest.isCompleted
                     ? "bg-zinc-800/40 border-zinc-800 opacity-60"
                     : "bg-zinc-800/60 border-zinc-700/50 hover:border-zinc-600 cursor-pointer"
                 }
-      `}
+            `}
             onClick={!quest.isCompleted && !isCompleting ? onComplete : undefined}
         >
-            {/* Checkbox */}
-            <button
-                disabled={quest.isCompleted || isCompleting}
-                onClick={(e) => { e.stopPropagation(); onComplete(); }}
-                className={`
-          flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
-          ${quest.isCompleted
-                        ? "bg-[#c8f57a] border-[#c8f57a]"
-                        : isCompleting
-                            ? "border-[#c8f57a] animate-pulse"
-                            : "border-zinc-600 hover:border-[#c8f57a]"
-                    }
-        `}
-            >
-                {quest.isCompleted && (
-                    <svg className="w-3 h-3 text-black" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+            {/* Status icon */}
+            <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+                {quest.isCompleted ? (
+                    <Icon icon="hugeicons:checkmark-circle-02" width={22} height={22} className="text-lime" />
+                ) : isCompleting ? (
+                    <Icon icon="hugeicons:loading-03" width={22} height={22} className="text-lime animate-spin" />
+                ) : (
+                    <Icon icon="hugeicons:circle" width={22} height={22} className="text-zinc-600" />
                 )}
-                {isCompleting && !quest.isCompleted && (
-                    <div className="w-2 h-2 bg-[#c8f57a] rounded-full animate-ping" />
-                )}
-            </button>
+            </div>
 
             {/* Content */}
             <div className="flex-1 min-w-0">
@@ -66,10 +54,12 @@ export default function QuestCard({ quest, isCompleting, onComplete }: Props) {
             </span>
 
             {/* XP reward */}
-            <div className="flex items-center gap-1 text-xs font-bold text-[#c8f57a] flex-shrink-0">
+            <div className="flex items-center gap-1 text-xs font-bold text-lime flex-shrink-0">
                 <span>⚡</span>
                 <span>+{quest.xpReward}</span>
             </div>
         </div>
     );
 }
+
+export default QuestCard;
