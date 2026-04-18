@@ -16,14 +16,14 @@ const QuestList = ({ quests, completingId, onComplete }: Props) => {
                     <h2 className="text-sm font-black uppercase tracking-widest text-white">
                         Daily Quests
                     </h2>
-                    <p className="text-zinc-500 text-xs mt-0.5">
+                    <p className="text-sand text-xs mt-0.5">
                         {quests.completedCount}/{quests.quests.length} completed
                         {quests.totalXpEarned > 0 && ` · +${quests.totalXpEarned} XP earned`}
                     </p>
                 </div>
                 {/* Progress pill */}
                 <div className="flex items-center gap-2">
-                    <div className="h-1.5 w-24 bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 w-24 bg-subtle rounded-full overflow-hidden">
                         <div
                             className="h-full bg-lime rounded-full transition-all duration-500"
                             style={{
@@ -31,7 +31,7 @@ const QuestList = ({ quests, completingId, onComplete }: Props) => {
                             }}
                         />
                     </div>
-                    <span className="text-xs text-zinc-400 tabular-nums">
+                    <span className="text-xs text-muted tabular-nums">
                         {quests.quests.length > 0
                             ? Math.round((quests.completedCount / quests.quests.length) * 100)
                             : 0}%

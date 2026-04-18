@@ -12,12 +12,12 @@ const ActivityLog = () => {
             <h2 className="text-sm font-black uppercase tracking-widest text-white">Activity Log</h2>
             <div className="space-y-1">
                 {mockEntries.map((entry, i) => (
-                    <div key={i} className="flex items-center gap-3 py-2 border-b border-zinc-800/60 last:border-0">
-                        <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center flex-shrink-0">
+                    <div key={i} className="flex items-center gap-3 py-2 border-b border-border/60 last:border-0">
+                        <div className="w-8 h-8 rounded-lg bg-subtle flex items-center justify-center flex-shrink-0">
                             <span className={`text-sm ${entry.iconColor}`}>{entry.icon}</span>
                         </div>
-                        <span className="flex-1 text-xs text-zinc-300 leading-snug">{entry.label}</span>
-                        <span className="text-[10px] text-zinc-600 whitespace-nowrap">{entry.timeAgo}</span>
+                        <span className="flex-1 text-xs text-muted leading-snug">{entry.label}</span>
+                        <span className="text-[10px] text-dim whitespace-nowrap">{entry.timeAgo}</span>
                     </div>
                 ))}
             </div>

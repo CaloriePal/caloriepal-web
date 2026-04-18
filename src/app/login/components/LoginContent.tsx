@@ -10,7 +10,7 @@ const LoginContent = () => {
     return (
         <>
             {error && (
-                <p className="text-red-400 text-sm">Authentication failed. Please try again.</p>
+                <p className="text-rose text-sm">Authentication failed. Please try again.</p>
             )}
             <GoogleSignInButton />
         </>

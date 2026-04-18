@@ -12,12 +12,12 @@ const XpBar = ({ xpInto, xpRequired, level }: XpBarProps) => {
     return (
         <div className="space-y-1.5">
             <div className="flex justify-between items-center text-xs">
-                <span className="text-zinc-400">XP to Level {level + 1}</span>
+                <span className="text-muted">XP to Level {level + 1}</span>
                 <span className="text-lime font-semibold tabular-nums">
                     {xpInto.toLocaleString()} / {xpRequired.toLocaleString()}
                 </span>
             </div>
-            <div className="h-2.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+            <div className="h-2.5 w-full bg-subtle rounded-full overflow-hidden">
                 <div
                     className="h-full bg-lime rounded-full transition-all duration-700 ease-out"
                     style={{ width: `${pct}%` }}

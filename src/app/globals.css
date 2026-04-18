@@ -11,6 +11,9 @@
   --color-surface: hsl(222, 24%, 11%);
   --color-cream: hsl(210, 20%, 92%);
   --color-sand: hsl(222, 10%, 55%);
+  --color-muted: hsl(222, 12%, 58%);
+  --color-dim: hsl(222, 10%, 34%);
+  --color-subtle: hsl(222, 22%, 14%);
   --color-lime: hsl(43, 90%, 62%);
   --color-lime-light: hsl(43, 90%, 70%);
   --color-sky: hsl(152, 65%, 50%);

@@ -8,16 +8,16 @@ const HeroCard = ({ stats }: Props) => {
         <div className="bg-card border border-border rounded-2xl p-6">
             {/* Top row */}
             <div className="flex justify-between items-start">
-                <div className="flex items-center gap-2 text-orange-400 text-sm font-semibold">
+                <div className="flex items-center gap-2 text-rose text-sm font-semibold">
                     <span>🔥</span>
                     <span>{stats.currentStreak} day streak</span>
                 </div>
-                <div className="flex items-center gap-2 text-yellow-400 text-sm font-semibold">
+                <div className="flex items-center gap-2 text-lime text-sm font-semibold">
                     <span>🪙</span>
                     <span>{stats.coins.toLocaleString()}</span>
                 </div>
             </div>
-            <div className="border-t border-zinc-800 my-4" />
+            <div className="border-t border-border my-4" />
 
             {/* Profile row */}
             <div className="flex items-center gap-5">

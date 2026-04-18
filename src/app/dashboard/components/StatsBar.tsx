@@ -18,15 +18,15 @@ const StatsBar = ({ stats }: Props) => {
             {statItems(stats).map((item) => (
                 <div
                     key={item.label}
-                    className="bg-card border border-zinc-800 rounded-xl p-4 flex flex-col gap-1"
+                    className="bg-card border border-border rounded-xl p-4 flex flex-col gap-1"
                 >
-                    <div className="flex items-center gap-1.5 text-zinc-400 text-xs uppercase tracking-wider">
+                    <div className="flex items-center gap-1.5 text-muted text-xs uppercase tracking-wider">
                         <span className="text-base leading-none">{item.icon}</span>
                         <span>{item.label}</span>
                     </div>
                     <div className="flex items-baseline gap-1.5">
                         <span className="text-xl font-black text-white tabular-nums">{item.value}</span>
-                        {item.unit && <span className="text-xs text-zinc-500">{item.unit}</span>}
+                        {item.unit && <span className="text-xs text-sand">{item.unit}</span>}
                     </div>
                 </div>
             ))}
