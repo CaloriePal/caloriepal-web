@@ -1,5 +1,6 @@
 import { createClient } from '@utils/supabase/client';
 import type { PlayerStatsDto, DailyQuestsDto, CompleteQuestResult, ActivityLogEntryDto } from '@models/dashboard';
+import type { DailyNutritionDto, FoodItemDto, MealLogDto, LogMealRequest } from '@models/nutrition';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -42,5 +43,30 @@ export async function completeQuest(questId: string): Promise<CompleteQuestResul
     headers,
   });
   if (!res.ok) throw new Error('Failed to complete quest');
+  return res.json();
+}
+
+export async function fetchDailyNutrition(): Promise<DailyNutritionDto> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_BASE}/api/Nutrition/daily`, { headers });
+  if (!res.ok) throw new Error('Failed to fetch daily nutrition');
+  return res.json();
+}
+
+export async function logMeal(req: LogMealRequest): Promise<MealLogDto> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_BASE}/api/Nutrition/meals`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(req),
+  });
+  if (!res.ok) throw new Error('Failed to log meal');
+  return res.json();
+}
+
+export async function searchFoods(term: string): Promise<FoodItemDto[]> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_BASE}/api/Nutrition/foods/search?term=${encodeURIComponent(term)}`, { headers });
+  if (!res.ok) throw new Error('Failed to search foods');
   return res.json();
 }
