@@ -4,7 +4,6 @@ import { GoogleSignInButton } from "@components";
 const Home = () => {
   return (
     <main className="min-h-screen bg-base text-cream">
-      {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 border-b border-white/5 backdrop-blur-md bg-base/80">
         <span className="font-[family-name:var(--font-serif)] text-xl tracking-wide text-cream">
           CaloriePal
@@ -28,16 +27,13 @@ const Home = () => {
 
       {/* Hero */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-6 text-center overflow-hidden">
-        {/* Background glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-lime/5 blur-[120px] pointer-events-none" />
 
-        {/* Pill badge */}
         <div className="animate-fade-up mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-sand tracking-widest uppercase">
           <span className="w-1.5 h-1.5 rounded-full bg-lime inline-block" />
           Now in development
         </div>
 
-        {/* Headline */}
         <h1 className="animate-fade-up delay-100 font-[family-name:var(--font-serif)] text-6xl sm:text-7xl lg:text-8xl leading-[1.05] tracking-tight max-w-4xl">
           Track what
           <br />
@@ -64,7 +60,6 @@ const Home = () => {
           </a>
         </div>
 
-        {/* Macro preview card */}
         <div className="animate-fade-up delay-400 mt-20 w-full max-w-sm mx-auto rounded-2xl border border-white/8 bg-white/4 backdrop-blur-sm p-5 text-left">
           <p className="text-xs text-sand uppercase tracking-widest mb-4">Today&apos;s summary</p>
           <div className="flex items-end justify-between mb-3">
@@ -94,7 +89,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Features */}
       <section id="features" className="px-6 py-32 max-w-5xl mx-auto">
         <p className="text-xs text-sand uppercase tracking-widest mb-3">What you get</p>
         <h2 className="font-[family-name:var(--font-serif)] text-4xl sm:text-5xl mb-16 max-w-lg leading-tight">
@@ -146,7 +140,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* How it works */}
       <section id="how" className="px-6 py-24 border-t border-white/5">
         <div className="max-w-5xl mx-auto">
           <p className="text-xs text-sand uppercase tracking-widest mb-3">How it works</p>
@@ -172,7 +165,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="px-6 py-32 text-center">
         <div className="max-w-xl mx-auto">
           <h2 className="font-[family-name:var(--font-serif)] text-5xl sm:text-6xl mb-6 leading-tight">
@@ -190,7 +182,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="px-8 py-6 border-t border-white/5 flex items-center justify-between text-xs text-sand">
         <span className="font-[family-name:var(--font-serif)] text-sm text-cream">CaloriePal</span>
         <span>Built with Next.js · ASP.NET Core · PostgreSQL</span>

@@ -28,7 +28,6 @@ const QuestCard = ({ quest, onComplete }: Props) => {
             `}
             onClick={!quest.isCompleted ? onComplete : undefined}
         >
-            {/* Status icon */}
             <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
                 {quest.isCompleted ? (
                     <Icon icon="hugeicons:checkmark-circle-02" width={22} height={22} className="text-lime" />
@@ -37,7 +36,6 @@ const QuestCard = ({ quest, onComplete }: Props) => {
                 )}
             </div>
 
-            {/* Content */}
             <div className="flex-1 min-w-0">
                 <p className={`text-sm font-semibold ${quest.isCompleted ? "line-through text-sand" : "text-white"}`}>
                     {quest.title}
@@ -45,12 +43,10 @@ const QuestCard = ({ quest, onComplete }: Props) => {
                 <p className="text-sand text-xs mt-0.5 truncate">{quest.description}</p>
             </div>
 
-            {/* Category badge */}
             <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md border flex-shrink-0 ${colorClass}`}>
                 {quest.category}
             </span>
 
-            {/* XP reward */}
             <div className="flex items-center gap-1 text-xs font-bold text-lime flex-shrink-0">
                 <span>⚡</span>
                 <span>+{quest.xpReward}</span>

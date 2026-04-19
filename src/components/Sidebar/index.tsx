@@ -4,29 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@iconify/react";
 import { Swords } from "lucide-react";
-
-const navItems = [
-    {
-        label: "Main",
-        links: [
-            { href: "/dashboard", label: "Dashboard", icon: "hugeicons:dashboard-square-02" },
-            { href: "/quests", label: "Quests", icon: "hugeicons:task-01" },
-            { href: "/achievements", label: "Achievements", icon: "hugeicons:champion" },
-            { href: "/workouts", label: "Workouts", icon: "hugeicons:dumbbell-01" },
-            { href: "/nutrition", label: "Nutrition", icon: "hugeicons:apple" },
-            { href: "/progress", label: "Progress", icon: "hugeicons:chart-increase" },
-            { href: "/shop", label: "Shop", icon: "hugeicons:shopping-bag-01" },
-            { href: "/leaderboard", label: "Leaderboard", icon: "hugeicons:ranking" },
-        ],
-    },
-];
+import { navItems } from "./data";
 
 const Sidebar = () => {
     const pathname = usePathname();
 
     return (
         <aside className="w-56 flex-shrink-0 bg-background border-r border-border flex flex-col">
-            {/* Logo */}
             <div className="h-14 flex items-center px-5 border-b border-border">
                 <div className="flex items-center gap-2.5">
                     <div className="w-7 h-7 rounded-md flex items-center justify-center">
@@ -38,7 +22,6 @@ const Sidebar = () => {
                 </div>
             </div>
 
-            {/* Nav */}
             <nav className="flex-1 px-3 py-4 space-y-5 overflow-y-auto">
                 {navItems.map((section) => (
                     <div key={section.label}>
@@ -78,7 +61,6 @@ const Sidebar = () => {
                 ))}
             </nav>
 
-            {/* Bottom */}
             <div className="px-3 py-4 border-t border-border space-y-0.5">
                 <Link
                     href="/settings"

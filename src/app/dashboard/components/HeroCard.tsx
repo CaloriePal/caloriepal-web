@@ -1,12 +1,11 @@
 import type { PlayerStatsDto } from "@models/dashboard";
-import XpBar from "./XpBar";
+import { XpBar } from "../components";
 
 interface Props { stats: PlayerStatsDto; }
 
 const HeroCard = ({ stats }: Props) => {
     return (
         <div className="bg-card border border-border rounded-2xl p-6">
-            {/* Top row */}
             <div className="flex justify-between items-start">
                 <div className="flex items-center gap-2 text-rose text-sm font-semibold">
                     <span>🔥</span>
@@ -19,9 +18,7 @@ const HeroCard = ({ stats }: Props) => {
             </div>
             <div className="border-t border-border my-4" />
 
-            {/* Profile row */}
             <div className="flex items-center gap-5">
-                {/* Avatar + level badge */}
                 <div className="relative flex-shrink-0">
                     <img
                         src={"./avatar.png"}
@@ -33,7 +30,6 @@ const HeroCard = ({ stats }: Props) => {
                     </div>
                 </div>
 
-                {/* Info */}
                 <div className="flex-1 min-w-0 pt-1">
                     <h1 className="text-2xl font-black tracking-wide text-white truncate font-heading">
                         {stats.displayName}

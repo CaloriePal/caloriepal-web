@@ -30,14 +30,12 @@ const StreakCalendar = ({ streak, longestStreak, freezes }: Props) => {
                 </div>
             </div>
 
-            {/* Day headers */}
             <div className="grid grid-cols-7 gap-2">
                 {dayNames.map((d, i) => (
                     <div key={i} className="text-center text-[10px] text-dim font-medium">{d}</div>
                 ))}
             </div>
 
-            {/* Calendar grid */}
             <div className="space-y-2 pb-2">
                 {weeks.map((week, wi) => (
                     <div key={wi} className="grid grid-cols-7 gap-2">
@@ -61,7 +59,6 @@ const StreakCalendar = ({ streak, longestStreak, freezes }: Props) => {
                 ))}
             </div>
 
-            {/* Stats row */}
             <div className="pt-2 border-t border-border flex items-center justify-between">
                 <span className="text-xs text-muted">
                     Current: <span className="text-lime font-semibold">{streak} days</span>
@@ -71,7 +68,6 @@ const StreakCalendar = ({ streak, longestStreak, freezes }: Props) => {
                 </span>
             </div>
 
-            {/* Freezes */}
             {freezes > 0 && (
                 <div className="flex items-center gap-2 border-t border-border pt-2">
                     <span className="text-sky text-sm">🛡️</span>

@@ -1,5 +1,5 @@
 import type { DailyQuestsDto, DailyQuestItemDto } from "@models/dashboard";
-import QuestCard from "./QuestCard";
+import { QuestCard } from "../components";
 
 interface Props {
     quests: DailyQuestsDto;
@@ -9,7 +9,6 @@ interface Props {
 const QuestList = ({ quests, onComplete }: Props) => {
     return (
         <div className="bg-card border border-border rounded-2xl p-5 space-y-4">
-            {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
                     <h2 className="text-sm font-black uppercase tracking-widest text-white">
@@ -20,7 +19,6 @@ const QuestList = ({ quests, onComplete }: Props) => {
                         {quests.totalXpEarned > 0 && ` · +${quests.totalXpEarned} XP earned`}
                     </p>
                 </div>
-                {/* Progress pill */}
                 <div className="flex items-center gap-2">
                     <div className="h-1.5 w-24 bg-subtle rounded-full overflow-hidden">
                         <div
@@ -38,7 +36,6 @@ const QuestList = ({ quests, onComplete }: Props) => {
                 </div>
             </div>
 
-            {/* Quest cards */}
             <div className="space-y-2">
                 {quests.quests.map((quest) => (
                     <QuestCard

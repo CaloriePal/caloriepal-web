@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "@/utils/supabase/server";
+import { createServerSupabaseClient } from "@utils/supabase/server";
 import { Sidebar, Topbar } from "@components";
 
 const DashboardLayout = async ({
