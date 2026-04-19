@@ -16,7 +16,7 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'CaloriePal — Track what fuels you',
+  title: 'CaloriePal',
   description: 'Nutrition tracking built for people who actually care about what they eat.',
 };
 
