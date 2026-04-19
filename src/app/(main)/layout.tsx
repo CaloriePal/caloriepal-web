@@ -1,18 +1,14 @@
-import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "@utils/supabase/server";
+import { createServerSupabaseClient } from "@/utils/supabase/server";
 import { Sidebar, Topbar } from "@components";
+import { redirect } from "next/navigation";
 
-const DashboardLayout = async ({
-    children,
-}: {
-    children: React.ReactNode;
-}) => {
+const MainLayout = async ({ children }: { children: React.ReactNode }) => {
     const supabase = await createServerSupabaseClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) redirect("/");
 
     return (
-        <div className="flex h-screen bg-background overflow-hidden">
+        <div className="flex h-screen bg-background">
             <Sidebar />
             <div className="flex flex-col flex-1 overflow-hidden">
                 <Topbar />
@@ -22,6 +18,6 @@ const DashboardLayout = async ({
             </div>
         </div>
     );
-}
+};
 
-export default DashboardLayout;
+export default MainLayout;
