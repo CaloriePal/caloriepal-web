@@ -51,8 +51,9 @@ const DashboardClient = () => {
             if (result.levelsGained > 0) {
                 setLevelUpMsg(`Level up! You reached level ${result.newLevel}!`);
                 setTimeout(() => setLevelUpMsg(null), 4000);
-                // Re-fetch everything only when level-up changes XP bar / stats
                 await loadDashboard();
+            } else {
+                fetchActivityLog().then(setActivityLog);
             }
         } catch (e) {
             console.error(e);
