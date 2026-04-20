@@ -28,7 +28,6 @@ export const navItems: NavSection[] = [
         href: '/workouts',
         label: 'Workouts',
         icon: 'hugeicons:dumbbell-01',
-        status: 'coming-soon',
       },
       { href: '/nutrition', label: 'Nutrition', icon: 'hugeicons:apple' },
       {

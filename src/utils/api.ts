@@ -1,6 +1,17 @@
 import { createClient } from '@utils/supabase/client';
-import type { PlayerStatsDto, DailyQuestsDto, CompleteQuestResult, ActivityLogEntryDto } from '@models/dashboard';
+import type {
+  PlayerStatsDto,
+  DailyQuestsDto,
+  CompleteQuestResult,
+  ActivityLogEntryDto,
+} from '@models/dashboard';
 import type { DailyNutritionDto, FoodItemDto, MealLogDto, LogMealRequest } from '@models/nutrition';
+import type {
+  WorkoutStatsDto,
+  WorkoutSessionDto,
+  LogWorkoutRequest,
+  ExerciseDto,
+} from '@models/workout';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -66,7 +77,38 @@ export async function logMeal(req: LogMealRequest): Promise<MealLogDto> {
 
 export async function searchFoods(term: string): Promise<FoodItemDto[]> {
   const headers = await getAuthHeaders();
-  const res = await fetch(`${API_BASE}/api/Nutrition/foods/search?term=${encodeURIComponent(term)}`, { headers });
+  const res = await fetch(
+    `${API_BASE}/api/Nutrition/foods/search?term=${encodeURIComponent(term)}`,
+    { headers }
+  );
   if (!res.ok) throw new Error('Failed to search foods');
+  return res.json();
+}
+
+export async function fetchWorkoutStats(): Promise<WorkoutStatsDto> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_BASE}/api/Workouts/stats`, { headers });
+  if (!res.ok) throw new Error('Failed to fetch workout stats');
+  return res.json();
+}
+
+export async function logWorkout(req: LogWorkoutRequest): Promise<WorkoutSessionDto> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_BASE}/api/Workouts/sessions`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(req),
+  });
+  if (!res.ok) throw new Error('Failed to log workout');
+  return res.json();
+}
+
+export async function searchExercises(term: string): Promise<ExerciseDto[]> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(
+    `${API_BASE}/api/Workouts/exercises/search?term=${encodeURIComponent(term)}`,
+    { headers }
+  );
+  if (!res.ok) throw new Error('Failed to search exercises');
   return res.json();
 }
