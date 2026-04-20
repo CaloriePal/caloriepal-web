@@ -57,21 +57,15 @@ const ExerciseSearchInput = ({ category, pending, onPendingChange, onAddExercise
                     </div>
                 )}
 
-                {search.showDropdown && !pending.exerciseId && (
+                {search.showDropdown && !pending.exerciseId && search.results.length > 0 && (
                     <div className="absolute z-10 mt-1 w-full bg-card border border-border rounded-xl shadow-xl overflow-hidden">
-                        {search.results.length > 0 ? (
-                            search.results.map(ex => (
-                                <button key={ex.id} type="button" onClick={() => handleSelect(ex)}
-                                    className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-subtle transition-colors text-left">
-                                    <span className="text-cream text-sm">{ex.name}</span>
-                                    {ex.muscleGroup && <span className="text-sand text-xs">{ex.muscleGroup}</span>}
-                                </button>
-                            ))
-                        ) : (
-                            <div className="px-4 py-3">
-                                <p className="text-sand text-sm">No results — using custom name</p>
-                            </div>
-                        )}
+                        {search.results.map(ex => (
+                            <button key={ex.id} type="button" onClick={() => handleSelect(ex)}
+                                className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-subtle transition-colors text-left">
+                                <span className="text-cream text-sm">{ex.name}</span>
+                                {ex.muscleGroup && <span className="text-sand text-xs">{ex.muscleGroup}</span>}
+                            </button>
+                        ))}
                     </div>
                 )}
             </div>

@@ -21,7 +21,7 @@ export const useExerciseSearch = (searchTerm: string, enabled: boolean) => {
             try {
                 const data = await searchExercises(term);
                 setResults(data);
-                setShowDropdown(true);
+                setShowDropdown(data.length > 0);
             } catch {
                 setResults([]);
             } finally {
