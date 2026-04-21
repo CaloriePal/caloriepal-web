@@ -1,4 +1,4 @@
-import { createServerSupabaseClient } from '@utils/supabase/server';
+import { createServerClient } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -6,15 +6,27 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code');
 
   if (code) {
-    const supabase = await createServerSupabaseClient();
+    const redirectTo = NextResponse.redirect(`${origin}/dashboard`);
+
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll: () => request.cookies.getAll(),
+          setAll: (cookiesToSet) => {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              redirectTo.cookies.set(name, value, options)
+            );
+          },
+        },
+      }
+    );
+
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      console.log('Bearer token:', session?.access_token);
+      const { data: { session } } = await supabase.auth.getSession();
 
       if (session && process.env.NEXT_PUBLIC_API_URL) {
         try {
@@ -35,7 +47,7 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      return NextResponse.redirect(`${origin}/dashboard`);
+      return redirectTo;
     }
   }
 
