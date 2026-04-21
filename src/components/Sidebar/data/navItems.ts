@@ -17,7 +17,7 @@ export const navItems: NavSection[] = [
     label: 'Main',
     links: [
       { href: '/dashboard', label: 'Dashboard', icon: 'hugeicons:dashboard-square-02' },
-      { href: '/quests', label: 'Quests', icon: 'hugeicons:task-01', status: 'coming-soon' },
+      { href: '/quests', label: 'Quests', icon: 'hugeicons:task-01' },
       {
         href: '/achievements',
         label: 'Achievements',
