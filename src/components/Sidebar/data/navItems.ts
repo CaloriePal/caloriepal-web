@@ -36,7 +36,7 @@ export const navItems: NavSection[] = [
         icon: 'hugeicons:chart-increase',
         status: 'disabled',
       },
-      { href: '/shop', label: 'Shop', icon: 'hugeicons:shopping-bag-01', status: 'coming-soon' },
+      { href: '/shop', label: 'Shop', icon: 'hugeicons:shopping-bag-01' },
       { href: '/leaderboard', label: 'Leaderboard', icon: 'hugeicons:ranking', status: 'disabled' },
     ],
   },

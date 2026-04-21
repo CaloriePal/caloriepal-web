@@ -49,3 +49,8 @@ export interface CompleteQuestResult {
   streakOutcome: string;
   totalCoins: number;
 }
+
+export interface PurchaseStreakFreezeResult {
+  newCoinBalance: number;
+  newStreakFreezeCount: number;
+}

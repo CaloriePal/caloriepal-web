@@ -4,6 +4,7 @@ import type {
   DailyQuestsDto,
   CompleteQuestResult,
   ActivityLogEntryDto,
+  PurchaseStreakFreezeResult,
 } from '@models/dashboard';
 import type { DailyNutritionDto, FoodItemDto, MealLogDto, LogMealRequest } from '@models/nutrition';
 import type {
@@ -110,5 +111,15 @@ export async function searchExercises(term: string): Promise<ExerciseDto[]> {
     { headers }
   );
   if (!res.ok) throw new Error('Failed to search exercises');
+  return res.json();
+}
+
+export async function purchaseStreakFreeze(): Promise<PurchaseStreakFreezeResult> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_BASE}/api/Shop/purchase-streak-freeze`, {
+    method: 'GET',
+    headers,
+  });
+  if (!res.ok) throw new Error('Failed to purchase streak freeze');
   return res.json();
 }
