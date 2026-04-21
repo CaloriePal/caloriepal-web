@@ -22,7 +22,7 @@ export const navItems: NavSection[] = [
         href: '/achievements',
         label: 'Achievements',
         icon: 'hugeicons:champion',
-        status: 'disabled',
+        status: 'coming-soon',
       },
       {
         href: '/workouts',
@@ -34,10 +34,15 @@ export const navItems: NavSection[] = [
         href: '/progress',
         label: 'Progress',
         icon: 'hugeicons:chart-increase',
-        status: 'disabled',
+        status: 'coming-soon',
       },
       { href: '/shop', label: 'Shop', icon: 'hugeicons:shopping-bag-01' },
-      { href: '/leaderboard', label: 'Leaderboard', icon: 'hugeicons:ranking', status: 'disabled' },
+      {
+        href: '/leaderboard',
+        label: 'Leaderboard',
+        icon: 'hugeicons:ranking',
+        status: 'coming-soon',
+      },
     ],
   },
 ];

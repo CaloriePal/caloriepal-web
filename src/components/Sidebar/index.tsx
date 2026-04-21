@@ -46,7 +46,7 @@ const Sidebar = () => {
                                     const active = pathname === href;
                                     const isDisabled = status === 'disabled';
                                     const isComingSoon = status === 'coming-soon';
-                                    const isDimmed = isDisabled;
+                                    const isDimmed = isDisabled || isComingSoon;
 
                                     return (
                                         <Link
