@@ -4,8 +4,8 @@ import { redirect } from "next/navigation";
 
 const MainLayout = async ({ children }: { children: React.ReactNode }) => {
     const supabase = await createServerSupabaseClient();
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) redirect("/");
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect("/");
 
     return (
         <div className="flex h-screen bg-background">
