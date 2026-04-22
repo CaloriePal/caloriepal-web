@@ -18,14 +18,8 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
 async function getAuthHeaders(): Promise<HeadersInit> {
   const supabase = createClient();
-  let { data: { session } } = await supabase.auth.getSession();
-
-  if (!session) {
-    const { data } = await supabase.auth.refreshSession();
-    session = data.session;
-  }
-
-  const token = session?.access_token;
+  const { data } = await supabase.auth.getSession();
+  const token = data.session?.access_token;
   if (!token) throw new Error('Not authenticated');
   return {
     Authorization: `Bearer ${token}`,
