@@ -12,12 +12,12 @@ import type {
   LogWorkoutRequest,
   ExerciseDto,
 } from '@models/workout';
-import { createServerSupabaseClient } from './supabase/server';
+import { createClient } from './supabase/client';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
 async function getAuthHeaders(): Promise<HeadersInit> {
-  const supabase = await createServerSupabaseClient();
+  const supabase = createClient();
   const { data } = await supabase.auth.getSession();
   const token = data.session?.access_token;
   if (!token) throw new Error('Not authenticated');
