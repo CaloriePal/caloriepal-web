@@ -24,6 +24,8 @@ export async function GET(request: NextRequest) {
     );
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+    console.log('exchange error:', error);
+    console.log('response cookies after exchange:', response.cookies.getAll());
 
     if (!error) {
       const {
