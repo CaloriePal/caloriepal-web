@@ -21,7 +21,8 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  await supabase.auth.getUser();
+  // Use getSession instead of getUser - doesn't hit Supabase server
+  await supabase.auth.getSession();
 
   return supabaseResponse;
 }
