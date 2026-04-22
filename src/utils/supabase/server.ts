@@ -11,7 +11,13 @@ export const createServerSupabaseClient = async () => {
       cookies: {
         getAll: () => cookieStore.getAll(),
         setAll: cookiesToSet => {
-          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, {
+              ...options,
+              secure: true,
+              sameSite: 'lax',
+            })
+          );
         },
       },
     }
