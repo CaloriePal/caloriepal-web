@@ -96,10 +96,13 @@ const Sidebar = () => {
                         <Icon icon="hugeicons:settings-01" width={18} height={18} className="text-sand" />
                         <span>Settings</span>
                     </Link>
-                    <Link href="/auth/logout" className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted hover:text-red-400 hover:bg-red-500/5 transition-all">
+                    <button
+                        onClick={() => window.location.href = '/auth/logout'}
+                        className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted hover:text-red-400 hover:bg-red-500/5 transition-all"
+                    >
                         <Icon icon="hugeicons:logout-01" width={18} height={18} className="text-sand" />
                         <span>Log Out</span>
-                    </Link>
+                    </button>
                 </div>
             </aside>
 
