@@ -1,3 +1,4 @@
+import { createClient } from '@utils/supabase/client';
 import type {
   PlayerStatsDto,
   DailyQuestsDto,
@@ -12,7 +13,6 @@ import type {
   LogWorkoutRequest,
   ExerciseDto,
 } from '@models/workout';
-import { createClient } from './supabase/client';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -21,7 +21,6 @@ async function getAuthHeaders(): Promise<HeadersInit> {
   const { data } = await supabase.auth.getSession();
   const token = data.session?.access_token;
   if (!token) throw new Error('Not authenticated');
-
   return {
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
