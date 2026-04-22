@@ -12,23 +12,18 @@ import type {
   LogWorkoutRequest,
   ExerciseDto,
 } from '@models/workout';
+import { createServerSupabaseClient } from './supabase/server';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
-let cachedToken: { value: string; expiresAt: number } | null = null;
-
 async function getAuthHeaders(): Promise<HeadersInit> {
-  const now = Date.now();
-
-  if (!cachedToken || cachedToken.expiresAt < now) {
-    const res = await fetch('/api/auth/token');
-    if (!res.ok) throw new Error('Not authenticated');
-    const data = await res.json();
-    cachedToken = { value: data.token, expiresAt: now + 55 * 60 * 1000 };
-  }
+  const supabase = await createServerSupabaseClient();
+  const { data } = await supabase.auth.getSession();
+  const token = data.session?.access_token;
+  if (!token) throw new Error('Not authenticated');
 
   return {
-    Authorization: `Bearer ${cachedToken.value}`,
+    Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   };
 }
