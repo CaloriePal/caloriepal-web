@@ -1,8 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const proxy = async (request: NextRequest) => {
-  let supabaseResponse = NextResponse.next({ request });
+export async function middleware(request: NextRequest) {
+  const response = NextResponse.next({ request });
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,23 +11,18 @@ const proxy = async (request: NextRequest) => {
       cookies: {
         getAll: () => request.cookies.getAll(),
         setAll: cookiesToSet => {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            response.cookies.set(name, value, options)
           );
         },
       },
     }
   );
 
-  // Use getSession instead of getUser - doesn't hit Supabase server
   await supabase.auth.getSession();
 
-  return supabaseResponse;
-};
-
-export default proxy;
+  return response;
+}
 
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
