@@ -1,4 +1,3 @@
-import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 const PROTECTED_PATHS = [
@@ -6,37 +5,24 @@ const PROTECTED_PATHS = [
   '/settings', '/shop', '/achievements', '/progress', '/leaderboard',
 ];
 
-export async function middleware(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request });
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => request.cookies.getAll(),
-        setAll: cookiesToSet => {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          supabaseResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
-
-  const { data: { session } } = await supabase.auth.getSession();
-
+export function middleware(request: NextRequest) {
   const isProtected = PROTECTED_PATHS.some(p =>
     request.nextUrl.pathname.startsWith(p)
   );
 
-  if (!session && isProtected) {
+  if (!isProtected) {
+    return NextResponse.next();
+  }
+
+  const hasSession = request.cookies.getAll().some(
+    c => c.name.includes('-auth-token') && !c.name.includes('code-verifier') && c.value
+  );
+
+  if (!hasSession) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  return supabaseResponse;
+  return NextResponse.next();
 }
 
 export const config = {
