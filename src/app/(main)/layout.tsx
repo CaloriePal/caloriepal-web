@@ -1,12 +1,6 @@
-import { createServerSupabaseClient } from "@/utils/supabase/server";
 import { Sidebar, Topbar } from "@components";
-import { redirect } from "next/navigation";
 
-const MainLayout = async ({ children }: { children: React.ReactNode }) => {
-    const supabase = await createServerSupabaseClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) redirect("/");
-
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="flex h-screen bg-background">
             <Sidebar />
