@@ -1,4 +1,3 @@
-import { createClient } from '@utils/supabase/client';
 import type {
   PlayerStatsDto,
   DailyQuestsDto,
@@ -16,15 +15,20 @@ import type {
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
+let cachedToken: { value: string; expiresAt: number } | null = null;
+
 async function getAuthHeaders(): Promise<HeadersInit> {
-  const supabase = createClient();
-  const { data } = await supabase.auth.getSession();
-  console.log('session:', data.session);
-  console.log('all cookies:', document.cookie);
-  const token = data.session?.access_token;
-  if (!token) throw new Error('Not authenticated');
+  const now = Date.now();
+
+  if (!cachedToken || cachedToken.expiresAt < now) {
+    const res = await fetch('/api/auth/token');
+    if (!res.ok) throw new Error('Not authenticated');
+    const data = await res.json();
+    cachedToken = { value: data.token, expiresAt: now + 55 * 60 * 1000 };
+  }
+
   return {
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${cachedToken.value}`,
     'Content-Type': 'application/json',
   };
 }
