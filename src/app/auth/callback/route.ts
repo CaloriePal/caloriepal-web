@@ -2,6 +2,11 @@ import { createServerClient } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
+  console.log(
+    'CALLBACK incoming cookies:',
+    request.cookies.getAll().map(c => c.name)
+  );
+  console.log('CALLBACK code:', request.nextUrl.searchParams.get('code')?.substring(0, 10));
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
 
@@ -51,6 +56,10 @@ export async function GET(request: NextRequest) {
         }
       }
 
+      console.log(
+        'CALLBACK response cookies:',
+        response.cookies.getAll().map(c => c.name)
+      );
       return response;
     }
   }
