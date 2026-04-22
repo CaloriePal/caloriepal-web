@@ -2,11 +2,6 @@ import { createServerClient } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  console.log(
-    'CALLBACK incoming cookies:',
-    request.cookies.getAll().map(c => c.name)
-  );
-  console.log('CALLBACK code:', request.nextUrl.searchParams.get('code')?.substring(0, 10));
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
 
@@ -29,13 +24,13 @@ export async function GET(request: NextRequest) {
     );
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    console.log('exchange error:', error);
-    console.log('response cookies after exchange:', response.cookies.getAll());
 
     if (!error) {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+
+      console.log('Bearer token:', session?.access_token);
 
       if (session && process.env.NEXT_PUBLIC_API_URL) {
         try {
@@ -52,14 +47,10 @@ export async function GET(request: NextRequest) {
             }),
           });
         } catch {
-          // non-fatal
+          // Non-fatal: proceed to dashboard even if profile sync fails
         }
       }
 
-      console.log(
-        'CALLBACK response cookies:',
-        response.cookies.getAll().map(c => c.name)
-      );
       return response;
     }
   }

@@ -13,7 +13,7 @@ export const createServerSupabaseClient = async () => {
         setAll: cookiesToSet => {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, { ...options, secure: true, sameSite: 'lax' })
+              cookieStore.set(name, value, options)
             );
           } catch {
             // Server Components are read-only — middleware handles refresh

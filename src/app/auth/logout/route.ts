@@ -6,7 +6,6 @@ export async function GET(request: NextRequest) {
   const { origin } = new URL(request.url);
   const response = NextResponse.redirect(`${origin}/`);
 
-  // Manually clear all sb- cookies
   const cookieStore = await cookies();
   cookieStore
     .getAll()
