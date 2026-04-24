@@ -10,6 +10,8 @@ export const useWorkouts = () => {
     try {
       const data = await fetchWorkoutStats();
       setStats(data);
+    } catch (e) {
+      console.error(e);
     } finally {
       setLoading(false);
     }

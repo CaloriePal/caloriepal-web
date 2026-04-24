@@ -16,11 +16,31 @@ import type {
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL!;
 
+let _cachedToken: { value: string; expiresAt: number } | null = null;
+let _tokenPromise: Promise<string> | null = null;
+
+async function getToken(): Promise<string> {
+  if (_cachedToken && _cachedToken.expiresAt > Date.now()) return _cachedToken.value;
+
+  if (!_tokenPromise) {
+    _tokenPromise = createClient()
+      .auth.getSession()
+      .then(({ data }) => {
+        const token = data.session?.access_token;
+        if (!token) throw new Error('Not authenticated');
+        _cachedToken = { value: token, expiresAt: data.session!.expires_at! * 1000 - 60_000 };
+        return token;
+      })
+      .finally(() => {
+        _tokenPromise = null;
+      });
+  }
+
+  return _tokenPromise;
+}
+
 async function getAuthHeaders(): Promise<HeadersInit> {
-  const supabase = createClient();
-  const { data } = await supabase.auth.getSession();
-  const token = data.session?.access_token;
-  if (!token) throw new Error('Not authenticated');
+  const token = await getToken();
   return {
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',

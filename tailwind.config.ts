@@ -29,8 +29,8 @@ const config: Config = {
       },
     },
     fontFamily: {
-      heading: ['Space Grotesk', 'sans-serif'],
-      body: ['Inter', 'sans-serif'],
+      heading: ['var(--font-space-grotesk)', 'sans-serif'],
+      body: ['var(--font-inter)', 'sans-serif'],
     },
     container: {
       center: true,
