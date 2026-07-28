@@ -4,6 +4,8 @@ A fitness RPG web application that turns health tracking into a game. Users earn
 
 **Live:** [caloriepal-web.vercel.app](https://caloriepal-web.vercel.app)
 
+![CaloriePal preview](docs/caloriepal-preview.png)
+
 ---
 
 ## What it does
@@ -14,19 +16,6 @@ A fitness RPG web application that turns health tracking into a game. Users earn
 - **Workout logging** - Search exercises, log sessions with sets/reps/weight or duration/distance, track weekly goals and time trained.
 - **Shop** - Spend coins on Streak Freezes to protect your streak on rest days.
 - **Streak calendar** - 28-day visual history of activity, freeze count, current and longest streak.
-
----
-
-## Architecture
-
-Full-stack, two separate deployments:
-
-```
-caloriepal-web   (this repo)      →  Vercel
-caloriepal-api   (backend repo)   →  Railway (PostgreSQL)
-```
-
-The frontend never talks to the database directly. All mutations go through the REST API. Auth is handled by Supabase (Google OAuth) with JWTs validated on the backend.
 
 ---
 
@@ -45,17 +34,6 @@ The frontend never talks to the database directly. All mutations go through the 
 | Deployment | Vercel                                      |
 
 ### Backend ([caloriepal-api](https://github.com/tonymocanu97/caloriepal-api))
-
-|              |                                                                  |
-| ------------ | ---------------------------------------------------------------- |
-| Framework    | ASP.NET Core 10                                                  |
-| Language     | C#                                                               |
-| Architecture | Clean Architecture (Domain / Application / Infrastructure / API) |
-| Pattern      | CQRS with MediatR                                                |
-| ORM          | Entity Framework Core 10 + Npgsql                                |
-| Database     | PostgreSQL                                                       |
-| Auth         | JWT Bearer - Supabase ES256 tokens validated via JWKS            |
-| Deployment   | Railway                                                          |
 
 ---
 
@@ -86,20 +64,6 @@ src/
 
 ---
 
-## Notable implementation details
-
-**Auth flow** - Uses `@supabase/ssr` with a server-side `/api/auth/token` route. Client-side code fetches this endpoint to get the access token rather than reading browser cookies directly - a workaround for how Supabase SSR cookies behave in Vercel's edge environment.
-
-**Token caching** - The JWT is cached client-side and reused until 60 seconds before expiry. Concurrent API calls share a single in-flight token request rather than each fetching independently.
-
-**Logout as button** - The logout link in the sidebar is a `<button>` rather than a Next.js `<Link>`. Using `<Link>` caused Next.js to prefetch the route on render, which actually executed the logout handler.
-
-**Backend JWT validation** - Supabase issues ES256 (asymmetric) tokens. The backend fetches Supabase's JWKS at startup and uses the EC public keys directly - no shared secret needed.
-
-**Optimistic updates** - Quest completion, meal logging, and workout logging update the UI immediately before the API responds. On error, state is rolled back with a full refetch.
-
----
-
 ## Local setup
 
 ### Prerequisites
@@ -126,11 +90,3 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 ---
-
-## Roadmap
-
-- Achievements & badges
-- Progress charts (XP over time, streak history, macro trends)
-- Global leaderboard
-- Weekly and Epic quest types
-- Custom quest creation
